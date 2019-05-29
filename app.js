@@ -84,7 +84,8 @@ function addTask(e) {
     taskList.appendChild(li)
 
     //STORE IN LOCAL STORAGE
-    storeTaskInLocalStorage(taskInput.value)
+    // storeTaskInLocalStorage(taskInput.value)
+    createTaskOnServer(taskInput.value)
 
     //CLEAR INPUT FIELD FOR NEW TASK 
     taskInput.value = ''
@@ -92,6 +93,15 @@ function addTask(e) {
     e.preventDefault()
 }
 
+// ************************* Uncaught SyntaxError: Unexpected identifier ******************** error 
+// function createTaskOnServer(task) {
+//     return fetch("http://localhost:3000/tasks", {
+//         method: 'POST'
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(task)
+//     }).then(resp => resp.json())
+// }
+// ********************************************************************************************
 //Store task function (local storage --> doesnt show in ul with this)
 function storeTaskInLocalStorage(task) {
     let tasks
@@ -113,13 +123,25 @@ function removeTask(e) {
         if(confirm('Are you sure?')) {
         e.target.parentElement.parentElement.remove()
 
-        // EDITED HERE TO ADD DELETE FROM LOCAL STORAGE FUNCTIONALITY !!!
-        //Remove from local storage 
+        
+        //Remove task from local storage 
         removeTaskFromLocalStorage(e.target.parentElement.parentElement) //usually we would have an id reference .. 
+        // deleteTaskFromServer(e.target.parentElement.parentElement))
         }
     }
 }
 
+
+//******************************************************************* DELETE TASK FROM SERVER TEST  */************************** */
+
+// function deleteTaskFromServer(task) {
+//     return fetch("http://localhost:3000/tasks" + `/${task.user_id}`, {
+//         method: 'DELETE'
+//     }).then(resp => resp.json())
+// }
+
+
+// ********************************************************************************************************************************** /
 // REMOVE FROM LOCAL STORAGE FUNCTION   
 function removeTaskFromLocalStorage(taskItem) {
     // COPY PASTE from store task ... 
