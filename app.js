@@ -11,7 +11,10 @@ loadEventListeners()
 //Load all event listeners
 function loadEventListeners() {
     //DOM LOAD EVENT
-    document.addEventListener('DOMContentLoaded', getTasks)
+    document.addEventListener('DOMContentLoaded', () => {
+        fetchTasks()
+        .then(tasks => renderTasks(tasks))
+    })
     //add task event 
     form.addEventListener('submit', addTask)
     //remove task event 
@@ -28,7 +31,12 @@ function fetchTasks() {
 }
 
 function renderTasks(tasks) {
-   tasks.forEach(renderTask)
+   tasks.forEach(task => {
+    //    console.log(task)
+       renderTask(task)
+    })
+//    tasks.forEach(renderTask)
+        // tasks.forEach(function(task))
 }
 
 function renderTask(task) { 
@@ -36,7 +44,7 @@ function renderTask(task) {
         //Add class to element 
         li.className = 'collection-item' 
         //Create text node & append to li
-        li.appendChild(document.createTextNode(task)) // ****
+        li.appendChild(document.createTextNode(task.title)) // ****
         //Create new link element 
         const link = document.createElement('a')
         //Add class to link element 
@@ -48,9 +56,6 @@ function renderTask(task) {
         //Append li to the ul 
         taskList.appendChild(li)
 }
-
-fetchTasks()
-.then(tasks => renderTasks(tasks))
 
 
 
