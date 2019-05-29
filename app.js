@@ -22,35 +22,35 @@ function loadEventListeners() {
     filter.addEventListener('keyup', filterTasks)
 }
 
-//GET TASKS FROM LOCAL STORAGE (
-function getTasks() {
-    let tasks
-    if(localStorage.getItem('tasks') === null){
-        tasks = []
-    } else {
-        tasks = JSON.parse(localStorage.getItem('tasks'))
-    }
-    // 2. now loop the data which is there using forEach loop.
-    tasks.forEach(function(task){
-    //3. Copy code from add task to create DOM element.. 
-    const li = document.createElement('li')
-    //Add class to element 
-    li.className = 'collection-item' 
-    //Create text node & append to li
-    li.appendChild(document.createTextNode(task)) // **** PARAMETER NEEDS TO BE CHANGED TO THAT GIVEN IN LOOP!!!! ***
-    //Create new link element 
-    const link = document.createElement('a')
-    //Add class to link element 
-    link.className = 'delete-item secondary-content'  
-    //Add icon HTML 
-    link.innerHTML = '<i class="fa fa-remove"></i>' 
-    //Append the link to li 
-    li.appendChild(link)
-
-    //Append li to the ul 
-    taskList.appendChild(li)
-    })
+function fetchTasks() {
+    return fetch("http://localhost:3000/tasks")
+    .then(resp => resp.json())
 }
+
+function renderTasks(tasks) {
+   tasks.forEach(renderTask)
+}
+
+function renderTask(task) { 
+        const li = document.createElement('li')
+        //Add class to element 
+        li.className = 'collection-item' 
+        //Create text node & append to li
+        li.appendChild(document.createTextNode(task)) // ****
+        //Create new link element 
+        const link = document.createElement('a')
+        //Add class to link element 
+        link.className = 'delete-item secondary-content'  
+        //Add icon HTML 
+        link.innerHTML = '<i class="fa fa-remove"></i>' 
+        //Append the link to li 
+        li.appendChild(link)
+        //Append li to the ul 
+        taskList.appendChild(li)
+}
+
+fetchTasks()
+.then(tasks => renderTasks(tasks))
 
 
 
