@@ -23,6 +23,8 @@ function loadEventListeners() {
     clearBtn.addEventListener('click', clearTasks)
     //filter tasks event 
     filter.addEventListener('keyup', filterTasks)
+    //update task event 
+    taskList.addEventListener('click', updateTask)
 }
 
 function fetchTasks() {
@@ -46,14 +48,19 @@ function renderTask(task) {
         li.appendChild(document.createTextNode(task.title)) // ****
         //Create new link element 
         const link = document.createElement('a')
+        const ulink = document.createElement('a')
         //Add class to link element 
-        link.className = 'delete-item secondary-content'  
+        link.className = 'delete-item secondary-content'
+        ulink.className = 'update-item'  
         //Add icon HTML 
         link.innerHTML = '<i class="fa fa-remove"></i>' 
+        ulink.innerHTML = '<i class="fas fa-recycle"></i>'
         //Append the link to li 
         li.appendChild(link)
+        li.appendChild(ulink)
         //Append li to the ul 
         taskList.appendChild(li)
+        
 }
 
 
@@ -73,12 +80,16 @@ function addTask(e) {
     li.appendChild(document.createTextNode(taskInput.value))
     //Create new link element 
     const link = document.createElement('a')
+    const ulink = document.createElement('a')
     //Add class to link element 
-    link.className = 'delete-item secondary-content' //in materialize, secondary-content class offsets the item to the right. 
+    link.className = 'delete-item secondary-content' 
+    ulink.className = 'update-item'  
     //Add icon HTML 
     link.innerHTML = '<i class="fa fa-remove"></i>' //html for X icon 
+    ulink.innerHTML = '<i class="fas fa-recycle"></i>'
     //Append the link to li 
     li.appendChild(link)
+    li.appendChild(ulink)
 
     //Append li to the ul --> taskList was defined as the ul above!
     taskList.appendChild(li)
@@ -134,6 +145,29 @@ function removeTask(e) {
     }
 }
 
+// -----------------------------------------------------
+// UPDATING TASKS
+
+// function updateTaskOnServer(id) {
+//     return fetch("http://localhost:3000/tasks" + `/${id}.json`, {
+//         method: 'PATCH',
+//         headers: { 'Content-Type': 'application/json' },
+//         body: JSON.stringify(task)
+//     }).then(resp => resp.json())
+// }
+
+// function updateTaskOnPage(task) {
+    
+    
+//     const 
+// }
+
+function updateTask(id) {
+//     updateTaskOnServer(id)
+//     .then(task => updateTaskOnPage)
+}
+
+// ----------------------------------------------------------
 
 //Clear Tasks
 function clearTasks(){
