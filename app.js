@@ -39,6 +39,7 @@ function renderTasks(tasks) {
 
 function renderTask(task) { 
         const li = document.createElement('li')
+        li.dataset.id = task.id
         //Add class to element 
         li.className = 'collection-item' 
         //Create text node & append to li
@@ -91,7 +92,7 @@ function addTask(e) {
 
 }
 
-// ************************* Uncaught SyntaxError: Unexpected identifier ******************** 
+// ************************* ******************** 
 function createTaskOnServer(task) {
     // debugger
     return fetch("http://localhost:3000/tasks.json", {
@@ -122,31 +123,6 @@ function createTaskOnServer(task) {
 // }
 // --------------------------------------------------------------------------------------------------------------------------
 //Remove Task from page 
-function removeTask(e) {
-    //target delete item icon 
-    if(e.target.parentElement.classList.contains('delete-item')) {
-        if(confirm('Are you sure?')) {
-        e.target.parentElement.parentElement.remove()
-
-        
-        //Remove task from local storage 
-        removeTaskFromLocalStorage(e.target.parentElement.parentElement) 
-        //For sremove from server erver we need an id reference ???
-        
-        
-        }
-    }
-}
-
-
-//******************************************************************* DELETE TASK FROM SERVER TEST  */************************** */
-
-// function deleteTaskFromServer(task) {
-//     return fetch("http://localhost:3000/tasks" + `/${task.user_id}`, {
-//         method: 'DELETE'
-//     }).then(resp => resp.json())
-// }
-
 // function removeTask(e) {
 //     //target delete item icon 
 //     if(e.target.parentElement.classList.contains('delete-item')) {
@@ -154,33 +130,62 @@ function removeTask(e) {
 //         e.target.parentElement.parentElement.remove()
 
         
+//         //Remove task from local storage 
+//         removeTaskFromLocalStorage(e.target.parentElement.parentElement) 
+//         //For sremove from server erver we need an id reference ???
         
-//         deleteTaskFromServer(task) //does this need an id reference ??? 
         
 //         }
 //     }
 // }
 
 
+//******************************************************************* DELETE TASK FROM SERVER TEST  */************************** */
+
+function deleteTaskFromServer(id) {
+    // debugger
+
+    return fetch("http://localhost:3000/tasks" + `/${id}.json`, {
+        method: 'DELETE'
+    }).then(resp => resp.json())
+    
+    
+}
+
+function removeTask(e) {
+    //target delete item icon 
+    if(e.target.parentElement.classList.contains('delete-item')) {
+        if(confirm('Are you sure?')) {
+            const li = e.target.parentElement.parentElement
+            const id = li.dataset.id
+            li.remove()
+
+            deleteTaskFromServer(id) //does this need an id reference ??? 
+        
+        }
+    }
+}
+
+
 
 // ********************************************************************************************************************************** /
 // REMOVE FROM LOCAL STORAGE FUNCTION   
-function removeTaskFromLocalStorage(taskItem) {
-    let tasks
-    if(localStorage.getItem('tasks') === null){
-        tasks = []
-    } else {
-        tasks = JSON.parse(localStorage.getItem('tasks'))
-    }
-    // LOOP THROUGH 
-    tasks.forEach(function(task, index){
-        if (taskItem.textContent === task) {
-            tasks.splice(index, 1)
-        }
-    })
-// now set local storage again... 
-    localStorage.setItem('tasks', JSON.stringify(tasks))
-}
+// function removeTaskFromLocalStorage(taskItem) {
+//     let tasks
+//     if(localStorage.getItem('tasks') === null){
+//         tasks = []
+//     } else {
+//         tasks = JSON.parse(localStorage.getItem('tasks'))
+//     }
+//     // LOOP THROUGH 
+//     tasks.forEach(function(task, index){
+//         if (taskItem.textContent === task) {
+//             tasks.splice(index, 1)
+//         }
+//     })
+// // now set local storage again... 
+//     localStorage.setItem('tasks', JSON.stringify(tasks))
+// }
 
 //Clear Tasks
 function clearTasks(){
