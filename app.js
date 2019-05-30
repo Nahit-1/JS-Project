@@ -105,39 +105,7 @@ function createTaskOnServer(task) {
             .catch(error => console.error('Error:', error));
     
 }
-// ********************************************************************************************
-//----------------------------------------------------------------------------------------------------------
-//---OLD LOCAL STORAGE VERSION  
-//Store task function (local storage )
-// function storeTaskInLocalStorage(task) {
-//     let tasks
-//     if(localStorage.getItem('tasks') === null){
-//         tasks = []
-//     } else {
-//         tasks = JSON.parse(localStorage.getItem('tasks'))
-//     }
 
-//     tasks.push(task)
-
-//     localStorage.setItem('tasks', JSON.stringify(tasks))
-// }
-// --------------------------------------------------------------------------------------------------------------------------
-//Remove Task from page 
-// function removeTask(e) {
-//     //target delete item icon 
-//     if(e.target.parentElement.classList.contains('delete-item')) {
-//         if(confirm('Are you sure?')) {
-//         e.target.parentElement.parentElement.remove()
-
-        
-//         //Remove task from local storage 
-//         removeTaskFromLocalStorage(e.target.parentElement.parentElement) 
-//         //For sremove from server erver we need an id reference ???
-        
-        
-//         }
-//     }
-// }
 
 
 //******************************************************************* DELETE TASK FROM SERVER TEST  */************************** */
@@ -166,26 +134,6 @@ function removeTask(e) {
     }
 }
 
-
-
-// ********************************************************************************************************************************** /
-// REMOVE FROM LOCAL STORAGE FUNCTION   
-// function removeTaskFromLocalStorage(taskItem) {
-//     let tasks
-//     if(localStorage.getItem('tasks') === null){
-//         tasks = []
-//     } else {
-//         tasks = JSON.parse(localStorage.getItem('tasks'))
-//     }
-//     // LOOP THROUGH 
-//     tasks.forEach(function(task, index){
-//         if (taskItem.textContent === task) {
-//             tasks.splice(index, 1)
-//         }
-//     })
-// // now set local storage again... 
-//     localStorage.setItem('tasks', JSON.stringify(tasks))
-// }
 
 //Clear Tasks
 function clearTasks(){
