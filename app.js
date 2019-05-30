@@ -105,20 +105,22 @@ function createTaskOnServer(task) {
     
 }
 // ********************************************************************************************
+//----------------------------------------------------------------------------------------------------------
+//---OLD LOCAL STORAGE VERSION  
 //Store task function (local storage )
-function storeTaskInLocalStorage(task) {
-    let tasks
-    if(localStorage.getItem('tasks') === null){
-        tasks = []
-    } else {
-        tasks = JSON.parse(localStorage.getItem('tasks'))
-    }
+// function storeTaskInLocalStorage(task) {
+//     let tasks
+//     if(localStorage.getItem('tasks') === null){
+//         tasks = []
+//     } else {
+//         tasks = JSON.parse(localStorage.getItem('tasks'))
+//     }
 
-    tasks.push(task)
+//     tasks.push(task)
 
-    localStorage.setItem('tasks', JSON.stringify(tasks))
-}
-
+//     localStorage.setItem('tasks', JSON.stringify(tasks))
+// }
+// --------------------------------------------------------------------------------------------------------------------------
 //Remove Task from page 
 function removeTask(e) {
     //target delete item icon 
