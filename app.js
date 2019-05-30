@@ -26,7 +26,7 @@ function loadEventListeners() {
 }
 
 function fetchTasks() {
-    return fetch("http://localhost:3000/tasks")
+    return fetch("http://localhost:3000/tasks.json")
     .then(resp => resp.json())
 }
 
@@ -35,8 +35,6 @@ function renderTasks(tasks) {
     //    console.log(task)
        renderTask(task)
     })
-//    tasks.forEach(renderTask)
-        // tasks.forEach(function(task))
 }
 
 function renderTask(task) { 
@@ -61,6 +59,7 @@ function renderTask(task) {
 
 //Add Task
 function addTask(e) {
+    e.preventDefault()
     if(taskInput.value === '') {
         alert('Add a task')
     }
@@ -76,7 +75,7 @@ function addTask(e) {
     //Add class to link element 
     link.className = 'delete-item secondary-content' //in materialize, secondary-content class offsets the item to the right. 
     //Add icon HTML 
-    link.innerHTML = '<i class="fa fa-remove"></i>' //adds html for X icon 
+    link.innerHTML = '<i class="fa fa-remove"></i>' //html for X icon 
     //Append the link to li 
     li.appendChild(link)
 
@@ -84,45 +83,89 @@ function addTask(e) {
     taskList.appendChild(li)
 
     //STORE IN LOCAL STORAGE
-    storeTaskInLocalStorage(taskInput.value)
+    // storeTaskInLocalStorage(taskInput.value)
+    createTaskOnServer(taskInput.value)
 
     //CLEAR INPUT FIELD FOR NEW TASK 
     taskInput.value = ''
 
-    e.preventDefault()
 }
 
-//Store task function (local storage --> doesnt show in ul with this)
-function storeTaskInLocalStorage(task) {
-    let tasks
-    if(localStorage.getItem('tasks') === null){
-        tasks = []
-    } else {
-        tasks = JSON.parse(localStorage.getItem('tasks'))
-    }
-
-    tasks.push(task)
-
-    localStorage.setItem('tasks', JSON.stringify(tasks))
+// ************************* Uncaught SyntaxError: Unexpected identifier ******************** 
+function createTaskOnServer(task) {
+    // debugger
+    return fetch("http://localhost:3000/tasks.json", {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({task: {title: task}})
+    }).then(resp => resp.json())
+            // .then(resp=> console.log('Success:', JSON.stringify(resp)))
+            .then(console.log)
+            .catch(error => console.error('Error:', error));
+    
 }
+// ********************************************************************************************
+//----------------------------------------------------------------------------------------------------------
+//---OLD LOCAL STORAGE VERSION  
+//Store task function (local storage )
+// function storeTaskInLocalStorage(task) {
+//     let tasks
+//     if(localStorage.getItem('tasks') === null){
+//         tasks = []
+//     } else {
+//         tasks = JSON.parse(localStorage.getItem('tasks'))
+//     }
 
-//Remove Task Logic
+//     tasks.push(task)
+
+//     localStorage.setItem('tasks', JSON.stringify(tasks))
+// }
+// --------------------------------------------------------------------------------------------------------------------------
+//Remove Task from page 
 function removeTask(e) {
     //target delete item icon 
     if(e.target.parentElement.classList.contains('delete-item')) {
         if(confirm('Are you sure?')) {
         e.target.parentElement.parentElement.remove()
 
-        // EDITED HERE TO ADD DELETE FROM LOCAL STORAGE FUNCTIONALITY !!!
-        //Remove from local storage 
-        removeTaskFromLocalStorage(e.target.parentElement.parentElement) //usually we would have an id reference .. 
+        
+        //Remove task from local storage 
+        removeTaskFromLocalStorage(e.target.parentElement.parentElement) 
+        //For sremove from server erver we need an id reference ???
+        
+        
         }
     }
 }
 
+
+//******************************************************************* DELETE TASK FROM SERVER TEST  */************************** */
+
+// function deleteTaskFromServer(task) {
+//     return fetch("http://localhost:3000/tasks" + `/${task.user_id}`, {
+//         method: 'DELETE'
+//     }).then(resp => resp.json())
+// }
+
+// function removeTask(e) {
+//     //target delete item icon 
+//     if(e.target.parentElement.classList.contains('delete-item')) {
+//         if(confirm('Are you sure?')) {
+//         e.target.parentElement.parentElement.remove()
+
+        
+        
+//         deleteTaskFromServer(task) //does this need an id reference ??? 
+        
+//         }
+//     }
+// }
+
+
+
+// ********************************************************************************************************************************** /
 // REMOVE FROM LOCAL STORAGE FUNCTION   
 function removeTaskFromLocalStorage(taskItem) {
-    // COPY PASTE from store task ... 
     let tasks
     if(localStorage.getItem('tasks') === null){
         tasks = []
