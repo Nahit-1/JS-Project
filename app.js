@@ -24,7 +24,7 @@ function loadEventListeners() {
     //filter tasks event 
     filter.addEventListener('keyup', filterTasks)
     //update task event 
-    taskList.addEventListener('click', updateTask)
+    // taskList.addEventListener('click', updateTask)
 }
 
 function fetchTasks() {
@@ -157,15 +157,17 @@ function removeTask(e) {
 // }
 
 // function updateTaskOnPage(task) {
-    
-    
-//     const 
-// }
+//     const textLi = document.querySelector('.collection-item')
 
-function updateTask(id) {
+//     textLi.innerText = 
+    
+// //     const 
+// // }
+
+// function updateTask(id) {
 //     updateTaskOnServer(id)
 //     .then(task => updateTaskOnPage)
-}
+// }
 
 // ----------------------------------------------------------
 

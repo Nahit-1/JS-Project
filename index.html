@@ -7,6 +7,19 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <title>Task List</title>
+        <style>
+            body {
+                background-image: url("https://free4kwallpapers.com/uploads/wallpaper/yosemite-valley-through-the-lensball-wallpaper-1024x768-wallpaper.jpg")
+                /* background-color: tomato; */
+                 }
+            div.card-content {
+                background-color: rgb(57, 110, 255);
+            }
+            li.collection-item {
+                background-color: dodgerblue;
+            }
+            
+        </style>
 </head>
 <body>
     <div class="container">
@@ -27,13 +40,13 @@
                     </div>
                 </div>
                 <div class="card-action">
-                    <h5 id="idtask-title">Task</h5>
+                    <h5 id="idtask-title">Tasks</h5>
                     <div class="input-field col s12">
                             <input type="text" name="filter" id="filter">
                             <label for="filter">Filter Tasks</label>
                     </div>
                     <ul class="collection"></ul>
-                    <a href="#" class="clear-tasks btn black">Clear Tasks</a>
+                    <a href="#" class="clear-tasks btn dodgerblue">Clear Tasks</a>
                 </div>
             </div>
         </div>
